@@ -1,0 +1,8 @@
+# CMake generated Testfile for 
+# Source directory: /home/tomoya-y/ft_sensor_ws/src/dynpick_driver
+# Build directory: /home/tomoya-y/ft_sensor_ws/build/dynpick_driver
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+add_test(_ctest_dynpick_driver_roslaunch-check_launch_sample.launch "/home/tomoya-y/ft_sensor_ws/build/catkin_generated/env_cached.sh" "/usr/bin/python2" "/opt/ros/melodic/share/catkin/cmake/test/run_tests.py" "/home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver/roslaunch-check_launch_sample.launch.xml" "--return-code" "/usr/bin/cmake -E make_directory /home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver" "/opt/ros/melodic/share/roslaunch/cmake/../scripts/roslaunch-check -o \"/home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver/roslaunch-check_launch_sample.launch.xml\" \"/home/tomoya-y/ft_sensor_ws/src/dynpick_driver/launch/sample.launch\" ")
+add_test(_ctest_dynpick_driver_roslaunch-check_launch_driver.launch "/home/tomoya-y/ft_sensor_ws/build/catkin_generated/env_cached.sh" "/usr/bin/python2" "/opt/ros/melodic/share/catkin/cmake/test/run_tests.py" "/home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver/roslaunch-check_launch_driver.launch.xml" "--return-code" "/usr/bin/cmake -E make_directory /home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver" "/opt/ros/melodic/share/roslaunch/cmake/../scripts/roslaunch-check -o \"/home/tomoya-y/ft_sensor_ws/build/test_results/dynpick_driver/roslaunch-check_launch_driver.launch.xml\" \"/home/tomoya-y/ft_sensor_ws/src/dynpick_driver/launch/driver.launch\" ")

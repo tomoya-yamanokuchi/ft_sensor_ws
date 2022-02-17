@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e51bc/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e51bc.dir/build.make CMakeFiles/cmTC_e51bc.dir/build
+make[1]: ディレクトリ '/home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp' に入ります
+Building C object CMakeFiles/cmTC_e51bc.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_e51bc.dir/CheckSymbolExists.c.o   -c /home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_e51bc
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e51bc.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_e51bc.dir/CheckSymbolExists.c.o  -o cmTC_e51bc 
+CMakeFiles/cmTC_e51bc.dir/CheckSymbolExists.c.o: 関数 `main' 内:
+CheckSymbolExists.c:(.text+0x1b): `pthread_create' に対する定義されていない参照です
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_e51bc.dir/build.make:97: recipe for target 'cmTC_e51bc' failed
+make[1]: *** [cmTC_e51bc] Error 1
+make[1]: ディレクトリ '/home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp' から出ます
+Makefile:126: recipe for target 'cmTC_e51bc/fast' failed
+make: *** [cmTC_e51bc/fast] Error 2
+
+File /home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_20ffd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_20ffd.dir/build.make CMakeFiles/cmTC_20ffd.dir/build
+make[1]: ディレクトリ '/home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp' に入ります
+Building C object CMakeFiles/cmTC_20ffd.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_20ffd.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_20ffd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_20ffd.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_20ffd.dir/CheckFunctionExists.c.o  -o cmTC_20ffd -lpthreads 
+/usr/bin/ld: -lpthreads が見つかりません
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_20ffd.dir/build.make:97: recipe for target 'cmTC_20ffd' failed
+make[1]: *** [cmTC_20ffd] Error 1
+make[1]: ディレクトリ '/home/tomoya-y/ft_sensor_ws/build/CMakeFiles/CMakeTmp' から出ます
+Makefile:126: recipe for target 'cmTC_20ffd/fast' failed
+make: *** [cmTC_20ffd/fast] Error 2
+
+

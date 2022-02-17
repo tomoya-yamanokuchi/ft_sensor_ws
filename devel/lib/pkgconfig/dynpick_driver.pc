@@ -1,0 +1,8 @@
+prefix=/home/tomoya-y/ft_sensor_ws/devel
+
+Name: dynpick_driver
+Description: Description of dynpick_driver
+Version: 0.2.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
