@@ -33,6 +33,12 @@
 
     "workbench.tree.indent": 30,
     "files.associations": {
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "fstream": "c",
+        "iosfwd": "c",
+        "istream": "c",
+        "limits": "c",
+        "sstream": "c",
+        "streambuf": "c"
     },
 }

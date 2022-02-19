@@ -11,7 +11,8 @@
 #define false		0
 
 
-#define CALIB_DATA_LENGTH 27
+#define CALIB_DATA_LENGTH 26
+
 
 int SetComAttr(int fdc);
 
@@ -31,14 +32,19 @@ int main()
 	int			num;
 	int			n;
 
+	unsigned short	calib[6];
+
 
 	fd = NULL;
 	fdc = -1;
 
+	
+
 	start :
 		// COMポートをオープン
-		printf("Enter COM port > ");
-		scanf("%d", &comNo);
+		comNo = 0;
+		// printf("Enter COM port > ");
+		// scanf("%d", &comNo);
 		printf("Open /dev/ttyUSB%d\n", comNo);
 
 		sprintf(devname, "/dev/ttyUSB%d", comNo);
@@ -48,8 +54,8 @@ int main()
 
 		// サンプリング周期を得る
 		tw = 16;
-		printf("Enter sampling time (ms) > ");
-		scanf("%d", &tw);
+		// printf("Enter sampling time (ms) > ");
+		// scanf("%d", &tw);
 		printf("Sampling time = %d ms\n", tw);
 
 		printf("Enter File name > ");
@@ -87,12 +93,40 @@ int main()
 					break;
 				}
 			}
-
+			
 	
 			write(fdc, "P", 1); 			// 感度係数(主軸感度)を返す
 			char reply[CALIB_DATA_LENGTH];
 
-			int c = read(fdc, reply, CALIB_DATA_LENGTH);
+			int c = read(fdc, str, CALIB_DATA_LENGTH);
+			// n = strlen(reply);
+
+			// sscanf(reply, "%05d,%05d,%05d,%05d,%05d,%05d",
+			// 	&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
+
+			// float calib[6] = {1, 1, 1, 1, 1, 1};
+
+			sscanf(str, "%4hx%4hx%4hx%4hx%4hx%4hx",
+				&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
+
+			sprintf(str, "%05d,%05d,%05d,%05d,%05d,%05d\n",
+				calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
+
+
+			// printf(	"Calibration from sensor: %05d,%05d,%05d,%05d,%05d,%05d\n",
+            //      calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
+
+			// sscanf(reply, "%f,%f,%f,%f,%f,%f",
+			// 	&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
+			// printf("Calibration from sensor:\n%.3f LSB/N, %.3f LSB/N, %.3f LSB/N, %.3f LSB/Nm, %.3f LSB/Nm, %.3f LSB/Nm",
+			// 		calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
+
+			// sprintf(str, "%05d,%d,%05d,%05d,%05d,%05d,%05d,%05d\n",
+			// 	clk / tw * tw, tick,
+			// 	data[0], data[1], data[2], data[3], data[4], data[5]);
+
+			// printf("(c=%d) len reply = %d : %26d\n", c, n, reply);
+			// printf(" %s ", typeof(reply));
 
 			// float calib[6] = {1, 1, 1, 1, 1, 1};
 			// sscanf(reply, "%f,%f,%f,%f,%f,%f",
@@ -102,7 +136,7 @@ int main()
 			// 	clk / tw * tw, tick,
 			// 	data[0], data[1], data[2], data[3], data[4], data[5]);
 
-			fprintf(fd, str);
+			// fprintf(fd, str);
 			num++;
 
 	skip :
@@ -119,21 +153,6 @@ int main()
 				clkb2 = clk / 50 * 50;
 				}
 			}
-
-
-
-    
-    // Autoadjust
-    if (auto_adjust)
-    {
-
-        readCharFromSocket(fdc, CALIB_DATA_LENGTH, reply);
-
-        ROS_INFO("Calibration from sensor:\n%.3f LSB/N, %.3f LSB/N, %.3f LSB/N, %.3f LSB/Nm, %.3f LSB/Nm, %.3f LSB/Nm",
-                 calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
-        clearSocket(fdc, trash);
-    }
-
 
 	over1 :
 		close_keyboard();
