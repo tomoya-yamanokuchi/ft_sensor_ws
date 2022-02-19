@@ -1,6 +1,6 @@
 <launch>
   <arg name="device" default="/dev/ttyUSB0" />
-  <arg name="rate" default="1000" />
+  <arg name="rate" default="100" />
   <arg name="sensor_frame_id" default="/force_sensor" />
   <arg name="run_rviz" default="true" />
   <arg name="rvizconfig" default="$(find dynpick_driver)/launch/sample.rviz" />

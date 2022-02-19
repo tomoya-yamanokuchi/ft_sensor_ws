@@ -137,7 +137,7 @@ bool readCharFromSocket(int fdc, int length, char *reply)
 int main(int argc, char **argv)
 {
     int fdc;
-    int clock = 0;
+    int clock   = 0;
     double rate = 100;
     std::string devname, frame_id;
     bool auto_adjust = true;
@@ -272,6 +272,8 @@ int main(int argc, char **argv)
                     msg.wrench.torque.x = data[3];
                     msg.wrench.torque.y = data[4];
                     msg.wrench.torque.z = data[5] * 0.0;
+
+                    d
 
                     pub.publish(msg);
                     lock.unlock();

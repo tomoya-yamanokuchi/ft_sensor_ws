@@ -32,4 +32,7 @@
     "trailing-spaces.trimOnSave": true,
 
     "workbench.tree.indent": 30,
+    "files.associations": {
+        "*.tcc": "cpp"
+    },
 }
