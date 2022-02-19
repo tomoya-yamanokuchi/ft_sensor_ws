@@ -11,6 +11,8 @@
 #define false		0
 
 
+#define CALIB_DATA_LENGTH 27
+
 int SetComAttr(int fdc);
 
 int main()
@@ -86,8 +88,8 @@ int main()
 				}
 			}
 
-			// 単データリクエスト（次回分）
-			write(fdc, "p", 1);
+	
+			write(fdc, "P", 1); 			// 感度係数(主軸感度)を返す
 			char reply[CALIB_DATA_LENGTH];
 
 			int c = read(fdc, reply, CALIB_DATA_LENGTH);
