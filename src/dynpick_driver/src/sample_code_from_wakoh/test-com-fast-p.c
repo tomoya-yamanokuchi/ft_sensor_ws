@@ -10,10 +10,6 @@
 #define true		1
 #define false		0
 
-
-#define CALIB_DATA_LENGTH 26
-
-
 int SetComAttr(int fdc);
 
 int main()
@@ -32,163 +28,126 @@ int main()
 	int			num;
 	int			n;
 
-	unsigned short	calib[6];
-
 
 	fd = NULL;
 	fdc = -1;
 
-	
+start :
+	// COMポートをオープン
+	printf("Enter COM port > ");
+	scanf("%d", &comNo);
+	printf("Open /dev/ttyUSB%d\n", comNo);
 
-	start :
-		// COMポートをオープン
-		comNo = 0;
-		// printf("Enter COM port > ");
-		// scanf("%d", &comNo);
-		printf("Open /dev/ttyUSB%d\n", comNo);
+	sprintf(devname, "/dev/ttyUSB%d", comNo);
+	fdc = open(devname, O_RDWR | O_NOCTTY | O_NONBLOCK);
+	if (fdc < 0)
+		goto over;
 
-		sprintf(devname, "/dev/ttyUSB%d", comNo);
-		fdc = open(devname, O_RDWR | O_NOCTTY | O_NONBLOCK);
-		if (fdc < 0)
-			goto over;
+	// サンプリング周期を得る
+	tw = 16;
+	printf("Enter sampling time (ms) > ");
+	scanf("%d", &tw);
+	printf("Sampling time = %d ms\n", tw);
 
-		// サンプリング周期を得る
-		tw = 16;
-		// printf("Enter sampling time (ms) > ");
-		// scanf("%d", &tw);
-		printf("Sampling time = %d ms\n", tw);
+	printf("Enter File name > ");
+	scanf("%s", fname);
+	fd = fopen(fname, "w");
+	if (!fd)
+		goto over;
 
-		printf("Enter File name > ");
-		scanf("%s", fname);
-		fd = fopen(fname, "w");
-		if (!fd)
-			goto over;
+	// COMポートのボーレート等を設定
+	SetComAttr(fdc);
 
-		// COMポートのボーレート等を設定
-		SetComAttr(fdc);
+	// データを読み出す
+	printf("=== record data ===\n");
+	clk0 = clock() / (CLOCKS_PER_SEC / 1000);
+	clkb = 0;
+	clkb2 = 0;
+	num = 0;
 
-		// データを読み出す
-		printf("=== record data ===\n");
-		clk0 = clock() / (CLOCKS_PER_SEC / 1000);
-		clkb = 0;
-		clkb2 = 0;
-		num = 0;
+	// 感度係数(主軸感度)を返す（初回分）
+	write(fdc, "P", 1);
 
-		// 単データリクエスト（初回分）
-		write(fdc, "R", 1);
+	init_keyboard();
 
-		init_keyboard();
+	while (true)
+		{
+		// サンプリング周期だけ待つ
+		while (true)
+			{
+			clk = clock() / (CLOCKS_PER_SEC / 1000) - clk0;
 
-
-
-
-
-		while (true){
-			// サンプリング周期だけ待つ
-			while (true){
-				clk = clock() / (CLOCKS_PER_SEC / 1000) - clk0;
-
-				if (clk >= clkb + tw){
-					clkb = clk / tw * tw;
-					break;
-				}
-			}
-			
-	
-			write(fdc, "P", 1); 			// 感度係数(主軸感度)を返す
-			char reply[CALIB_DATA_LENGTH];
-
-			int c = read(fdc, str, CALIB_DATA_LENGTH);
-			// n = strlen(reply);
-
-			// sscanf(reply, "%05d,%05d,%05d,%05d,%05d,%05d",
-			// 	&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
-
-			// float calib[6] = {1, 1, 1, 1, 1, 1};
-
-			sscanf(str, "%4hx%4hx%4hx%4hx%4hx%4hx",
-				&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
-
-			sprintf(str, "%05d,%05d,%05d,%05d,%05d,%05d\n",
-				calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
-
-
-			// printf(	"Calibration from sensor: %05d,%05d,%05d,%05d,%05d,%05d\n",
-            //      calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
-
-			// sscanf(reply, "%f,%f,%f,%f,%f,%f",
-			// 	&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
-			// printf("Calibration from sensor:\n%.3f LSB/N, %.3f LSB/N, %.3f LSB/N, %.3f LSB/Nm, %.3f LSB/Nm, %.3f LSB/Nm",
-			// 		calib[0], calib[1], calib[2], calib[3], calib[4], calib[5]);
-
-			// sprintf(str, "%05d,%d,%05d,%05d,%05d,%05d,%05d,%05d\n",
-			// 	clk / tw * tw, tick,
-			// 	data[0], data[1], data[2], data[3], data[4], data[5]);
-
-			// printf("(c=%d) len reply = %d : %26d\n", c, n, reply);
-			// printf(" %s ", typeof(reply));
-
-			// float calib[6] = {1, 1, 1, 1, 1, 1};
-			// sscanf(reply, "%f,%f,%f,%f,%f,%f",
-			// 	&calib[0], &calib[1], &calib[2], &calib[3], &calib[4], &calib[5]);
-
-			// sprintf(str, "%05d,%d,%05d,%05d,%05d,%05d,%05d,%05d\n",
-			// 	clk / tw * tw, tick,
-			// 	data[0], data[1], data[2], data[3], data[4], data[5]);
-
-			// fprintf(fd, str);
-			num++;
-
-	skip :
-			if (clk >= 10000)
-				break;
-
-			// コンソールに間引き表示
-			if (clk >= clkb2 + 50)
+			if (clk >= clkb + tw)
 				{
-				printf(str);
-				if (kbhit() &&
-					readch() == '.')
-					break;
-				clkb2 = clk / 50 * 50;
+				clkb = clk / tw * tw;
+				break;
 				}
 			}
 
-	over1 :
-		close_keyboard();
+		// 感度係数(主軸感度)を返す（次回分）
+		write(fdc, "P", 1);
 
-	over :
-		if (fd)
+		// 単データを得る
+		n = read(fdc, str, 26);	
+		if (n < 26)
 			{
-			fclose(fd);
-			fd = NULL;
+//			printf ("=== error ! n = %d ===\n", n);
+			goto skip;
 			}
 
-		if (fdc >= 0)
+		sscanf(str, "%4hx%4hx%4hx%4hx%4hx%4hx",
+			 &data[0], &data[1], &data[2], &data[3], &data[4], &data[5]);
+
+		sprintf(str, "%05d,%05d,%05d,%05d,%05d,%05d,%05d\n",
+			clk / tw * tw,
+			data[0], data[1], data[2], data[3], data[4], data[5]);
+
+		fprintf(fd, str);
+		num++;
+
+skip :
+		if (clk >= 10000)
+			break;
+
+		// コンソールに間引き表示
+		if (clk >= clkb2 + 1000)
 			{
-			close(fdc);
-			fdc = -1;
+			printf(str);
+			if (kbhit() &&
+				readch() == '.')
+				break;
+			clkb2 = clk / 1000 * 1000;
 			}
+		}
 
-		printf ("=== num = %d ===\n", num);
+over1 :
+	close_keyboard();
+over :
+	if (fd)
+		{
+		fclose(fd);
+		fd = NULL;
+		}
 
-		printf("exit (y / n) ? > ");
-		scanf("%s", str);
-		if (str[0] == 'y')
-			{
-	//		exit(0);
-			}
-		else
-			{
-			goto start;
-			}
+	if (fdc >= 0)
+		{
+		close(fdc);
+		fdc = -1;
+		}
 
+	printf ("=== num = %d ===\n", num);
 
-
-}
-
-
-
+	printf("exit (y / n) ? > ");
+	scanf("%s", str);
+	if (str[0] == 'y')
+		{
+//		exit(0);
+		}
+	else
+		{
+		goto start;
+		}
+	}
 
 
 int SetComAttr(int fdc)
