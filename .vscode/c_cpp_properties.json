@@ -7,6 +7,7 @@
       },
       "includePath": [
         "/opt/ros/melodic/include/**",
+        "/src/dynpick_driver/include/**",
         "/usr/include/**"
       ],
       "name": "ROS"

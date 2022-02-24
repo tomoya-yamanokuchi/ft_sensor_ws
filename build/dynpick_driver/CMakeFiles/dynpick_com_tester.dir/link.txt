@@ -1,1 +1,1 @@
-/usr/bin/cc   -rdynamic CMakeFiles/dynpick_com_tester.dir/src/test-com.c.o  -o /home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_com_tester 
+/usr/bin/cc -g  -rdynamic CMakeFiles/dynpick_com_tester.dir/src/test-com.c.o  -o /home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_com_tester 

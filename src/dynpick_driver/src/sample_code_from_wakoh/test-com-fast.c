@@ -13,6 +13,7 @@
 
 int SetComAttr(int fdc);
 
+
 int main()
 	{
 	int			status;
@@ -89,7 +90,7 @@ int main()
 			write(fdc, "R", 1);
 
 			// 単データを得る
-			n = read(fdc, str, 27);	
+			n = read(fdc, str, 27);
 	// 		if (n < 27)
 	// 			{
 	// //			printf ("=== error ! n = %d ===\n", n);
@@ -161,7 +162,7 @@ int main()
 int SetComAttr(int fdc)
 	{
 	int			n;
-
+	printf(" :::::::::::::::: SetComAttr ::::::::::::::");
 	struct termios	term;
 
 
@@ -176,8 +177,8 @@ int SetComAttr(int fdc)
 	term.c_iflag = IGNPAR;
 	term.c_oflag = 0;
 	term.c_lflag = 0;/*ICANON;*/
- 
-	term.c_cc[VINTR]    = 0;     /* Ctrl-c */ 
+
+	term.c_cc[VINTR]    = 0;     /* Ctrl-c */
 	term.c_cc[VQUIT]    = 0;     /* Ctrl-? */
 	term.c_cc[VERASE]   = 0;     /* del */
 	term.c_cc[VKILL]    = 0;     /* @ */
@@ -185,7 +186,7 @@ int SetComAttr(int fdc)
 	term.c_cc[VTIME]    = 0;
 	term.c_cc[VMIN]     = 0;
 	term.c_cc[VSWTC]    = 0;     /* '?0' */
-	term.c_cc[VSTART]   = 0;     /* Ctrl-q */ 
+	term.c_cc[VSTART]   = 0;     /* Ctrl-q */
 	term.c_cc[VSTOP]    = 0;     /* Ctrl-s */
 	term.c_cc[VSUSP]    = 0;     /* Ctrl-z */
 	term.c_cc[VEOL]     = 0;     /* '?0' */
@@ -198,6 +199,6 @@ int SetComAttr(int fdc)
 //	tcflush(fdc, TCIFLUSH);
 	n = tcsetattr(fdc, TCSANOW, &term);
 over :
-	
+
 	return (n);
 	}

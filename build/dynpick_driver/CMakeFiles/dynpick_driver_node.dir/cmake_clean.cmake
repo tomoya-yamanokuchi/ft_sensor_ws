@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o"
+  "CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o"
   "CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o"
   "/home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node.pdb"
   "/home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node"

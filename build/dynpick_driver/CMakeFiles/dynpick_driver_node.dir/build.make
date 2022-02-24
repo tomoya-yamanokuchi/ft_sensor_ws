@@ -57,28 +57,28 @@ include dynpick_driver/CMakeFiles/dynpick_driver_node.dir/progress.make
 # Include the compile flags for this target's objects.
 include dynpick_driver/CMakeFiles/dynpick_driver_node.dir/flags.make
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/flags.make
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o: /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tomoya-y/ft_sensor_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o"
-	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o -c /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main.cpp
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/flags.make
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o: /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main_refa.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tomoya-y/ft_sensor_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o"
+	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o -c /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main_refa.cpp
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dynpick_driver_node.dir/src/main.cpp.i"
-	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main.cpp > CMakeFiles/dynpick_driver_node.dir/src/main.cpp.i
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.i"
+	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main_refa.cpp > CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.i
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dynpick_driver_node.dir/src/main.cpp.s"
-	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main.cpp -o CMakeFiles/dynpick_driver_node.dir/src/main.cpp.s
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.s"
+	cd /home/tomoya-y/ft_sensor_ws/build/dynpick_driver && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main_refa.cpp -o CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.s
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.requires:
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.requires:
 
-.PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.requires
+.PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.requires
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.provides: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.requires
-	$(MAKE) -f dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.provides.build
-.PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.provides
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.provides: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.requires
+	$(MAKE) -f dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.provides.build
+.PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.provides
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.provides.build: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.provides.build: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o
 
 
 dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/flags.make
@@ -107,13 +107,13 @@ dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o.provides.build: 
 
 # Object files for target dynpick_driver_node
 dynpick_driver_node_OBJECTS = \
-"CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o" \
+"CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o" \
 "CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o"
 
 # External object files for target dynpick_driver_node
 dynpick_driver_node_EXTERNAL_OBJECTS =
 
-/home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o
+/home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o
 /home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o
 /home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make
 /home/tomoya-y/ft_sensor_ws/devel/lib/dynpick_driver/dynpick_driver_node: /opt/ros/melodic/lib/libroscpp.so
@@ -143,7 +143,7 @@ dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build: /home/tomoya-y/ft_senso
 
 .PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build
 
-dynpick_driver/CMakeFiles/dynpick_driver_node.dir/requires: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o.requires
+dynpick_driver/CMakeFiles/dynpick_driver_node.dir/requires: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o.requires
 dynpick_driver/CMakeFiles/dynpick_driver_node.dir/requires: dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/kbhit.c.o.requires
 
 .PHONY : dynpick_driver/CMakeFiles/dynpick_driver_node.dir/requires

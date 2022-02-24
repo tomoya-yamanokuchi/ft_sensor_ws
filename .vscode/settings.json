@@ -20,13 +20,15 @@
 
     "workbench.tree.indent": 30,
     "files.associations"   : {
-        "*.tcc"    : "cpp",
-        "fstream"  : "c",
-        "iosfwd"   : "c",
-        "istream"  : "c",
-        "limits"   : "c",
-        "sstream"  : "c",
-        "streambuf": "c"
+        "*.tcc": "cpp",
+        "fstream": "c",
+        "iosfwd": "c",
+        "istream": "c",
+        "limits": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "condition_variable": "cpp",
+        "complex": "c"
     },
     "python.autoComplete.extraPaths": [
         "/opt/ros/melodic/lib/python2.7/dist-packages"

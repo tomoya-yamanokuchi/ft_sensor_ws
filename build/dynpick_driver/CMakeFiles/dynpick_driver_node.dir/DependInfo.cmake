@@ -18,11 +18,12 @@ set(CMAKE_TARGET_DEFINITIONS_C
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/home/tomoya-y/ft_sensor_ws/devel/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main.cpp" "/home/tomoya-y/ft_sensor_ws/build/dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main.cpp.o"
+  "/home/tomoya-y/ft_sensor_ws/src/dynpick_driver/src/main_refa.cpp" "/home/tomoya-y/ft_sensor_ws/build/dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/main_refa.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -35,6 +36,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/home/tomoya-y/ft_sensor_ws/devel/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )
