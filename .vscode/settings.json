@@ -18,7 +18,10 @@
         "streambuf": "c",
         "condition_variable": "cpp",
         "complex": "c",
-        "thread": "cpp"
+        "thread": "cpp",
+        "cmath": "cpp",
+        "string_view": "cpp",
+        "tuple": "cpp"
     },
     "python.autoComplete.extraPaths": [
         "/opt/ros/melodic/lib/python2.7/dist-packages"

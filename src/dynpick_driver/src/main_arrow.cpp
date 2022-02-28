@@ -164,8 +164,8 @@ int main(int argc, char **argv)
     ros::ServiceServer service = n.advertiseService("tare", offsetRequest);
     // ros::Publisher pub = n.advertise<geometry_msgs::WrenchStamped>("force", 100);
 
-    ros::Publisher pub        = n.advertise<MAF3_msgs::MAF3_Raw>("force", 100);
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 1);
+    // ros::Publisher pub        = n.advertise<MAF3_msgs::MAF3_Raw>("force", 100);
+    ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 100);
 
     ros::AsyncSpinner spinner(2); // Use 2 threads
     spinner.start();
@@ -215,7 +215,7 @@ int main(int argc, char **argv)
         unsigned short data[6];
 
         // geometry_msgs::WrenchStamped msg;
-        MAF3_msgs::MAF3_Raw msg;
+        // MAF3_msgs::MAF3_Raw msg;
 
         std::unique_lock<std::mutex> lock(m_);
         if (offset_reset_ <= 0){
@@ -243,20 +243,37 @@ int main(int argc, char **argv)
 
             // pub.publish(msg);
 
-            geometry_msgs::Vector3 arrow;
-            arrow.x = 0.1;
-            arrow.y = 0.1;
-            arrow.z = 0.1;
+            // geometry_msgs::Vector3 arrow;
+            // arrow.x = 0.02;
+            // arrow.y = 0.04;
+            // arrow.z = 0.1;
 
+
+            // geometry_msgs::Point linear_start;
+            // linear_start.x = 0;
+            // linear_start.y = 0;
+            // linear_start.z = 8000;
+            // geometry_msgs::Point linear_end;
+            // linear_end.x = 0;
+            // linear_end.y = 0;
+            // linear_end.z = data[2];
+
+            // length = 0.5
 
             geometry_msgs::Point linear_start;
-            linear_start.x = 0;
-            linear_start.y = 0;
-            linear_start.z = 8000;
+            linear_start.x = 0.0;
+            linear_start.y = 0.0;
+            linear_start.z = 0.1;
+
             geometry_msgs::Point linear_end;
-            linear_end.x = 0;
-            linear_end.y = 0;
-            linear_end.z = data[2];
+            linear_end.x = 0.0;
+            linear_end.y = 0.0;
+            linear_end.z = data[2] * 0.0001 ;
+
+            geometry_msgs::Vector3 arrow;  // config arrow shape
+            arrow.x = 0.02;
+            arrow.y = 0.04;
+            arrow.z = 0.1;
 
             visualization_msgs::MarkerArray marker_array;
             marker_array.markers.resize(2);
@@ -281,6 +298,11 @@ int main(int argc, char **argv)
             marker_array.markers[0].color.b = 0.0f;
             marker_array.markers[0].color.a = 1.0f;
 
+            marker_array.markers[0].pose.orientation.x = 0.0;
+            marker_array.markers[0].pose.orientation.y = 0.0;
+            marker_array.markers[0].pose.orientation.z = 0.0;
+            marker_array.markers[0].pose.orientation.w = 1.0;
+
 
             // marker1
             marker_array.markers[1].header.frame_id = "world";
@@ -302,6 +324,10 @@ int main(int argc, char **argv)
             marker_array.markers[1].color.b = 0.0f;
             marker_array.markers[1].color.a = 1.0f;
 
+            marker_array.markers[1].pose.orientation.x = 0.0;
+            marker_array.markers[1].pose.orientation.y = 0.0;
+            marker_array.markers[1].pose.orientation.z = 0.0;
+            marker_array.markers[1].pose.orientation.w = 1.0;
 
             marker_pub.publish(marker_array);
 
