@@ -15,6 +15,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <std_msgs/Header.h>
 
 namespace MAF3_msgs
 {
@@ -24,18 +25,23 @@ struct MAF3_Raw_
   typedef MAF3_Raw_<ContainerAllocator> Type;
 
   MAF3_Raw_()
-    : Fz(0)
+    : header()
+    , Fz(0)
     , Mx(0)
     , My(0)  {
     }
   MAF3_Raw_(const ContainerAllocator& _alloc)
-    : Fz(0)
+    : header(_alloc)
+    , Fz(0)
     , Mx(0)
     , My(0)  {
   (void)_alloc;
     }
 
 
+
+   typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
+  _header_type header;
 
    typedef uint16_t _Fz_type;
   _Fz_type Fz;
@@ -75,7 +81,8 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::MAF3_msgs::MAF3_Raw_<ContainerAllocator1> & lhs, const ::MAF3_msgs::MAF3_Raw_<ContainerAllocator2> & rhs)
 {
-  return lhs.Fz == rhs.Fz &&
+  return lhs.header == rhs.header &&
+    lhs.Fz == rhs.Fz &&
     lhs.Mx == rhs.Mx &&
     lhs.My == rhs.My;
 }
@@ -100,12 +107,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -120,12 +127,12 @@ struct IsMessage< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> >
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> const>
-  : FalseType
+  : TrueType
   { };
 
 
@@ -134,12 +141,12 @@ struct MD5Sum< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "88234e0056df7c10f369a7d34efefabf";
+    return "f2737879b757edf1b6829d2f9ca33456";
   }
 
   static const char* value(const ::MAF3_msgs::MAF3_Raw_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x88234e0056df7c10ULL;
-  static const uint64_t static_value2 = 0xf369a7d34efefabfULL;
+  static const uint64_t static_value1 = 0xf2737879b757edf1ULL;
+  static const uint64_t static_value2 = 0xb6829d2f9ca33456ULL;
 };
 
 template<class ContainerAllocator>
@@ -158,9 +165,25 @@ struct Definition< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "uint16 Fz\n"
+    return "Header header\n"
+"uint16 Fz\n"
 "uint16 Mx\n"
 "uint16 My\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
 ;
   }
 
@@ -179,6 +202,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
+      stream.next(m.header);
       stream.next(m.Fz);
       stream.next(m.Mx);
       stream.next(m.My);
@@ -200,6 +224,9 @@ struct Printer< ::MAF3_msgs::MAF3_Raw_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::MAF3_msgs::MAF3_Raw_<ContainerAllocator>& v)
   {
+    s << indent << "header: ";
+    s << std::endl;
+    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "Fz: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.Fz);
     s << indent << "Mx: ";

@@ -29,6 +29,14 @@
             "type"   : "ros",
             "request": "launch",
             "target" : "/home/ft_sensor_ws/catkin_ws/src/dynpick_driver/launch/sample.launch"
+        },
+
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
         }
     ]
 }

@@ -1,2 +1,2 @@
 MAF3_msgs:dynpick_driver
--DCATKIN_DEVEL_PREFIX=/home/tomoya-y/ft_sensor_ws/devel -DCMAKE_INSTALL_PREFIX=/home/tomoya-y/ft_sensor_ws/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=Debug -DCATKIN_DEVEL_PREFIX=/home/tomoya-y/ft_sensor_ws/devel -DCMAKE_INSTALL_PREFIX=/home/tomoya-y/ft_sensor_ws/install -G Unix Makefiles

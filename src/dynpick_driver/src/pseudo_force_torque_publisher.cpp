@@ -21,6 +21,14 @@ int main(int argc, char** argv){
     // maf3_msg.header.stamp    = ros::Time::now();
 
 
+
+    write(fdc, "R", 1);
+
+    // Obtain single data
+    //readCharFromSocket(fdc, DATA_LENGTH, str);
+    c = read(fdc, str, 27);
+
+
         // char key;
 
         // cin >> key;
