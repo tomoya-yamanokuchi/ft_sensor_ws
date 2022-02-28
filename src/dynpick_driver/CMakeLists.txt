@@ -44,6 +44,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 add_executable(info_marker_publisher1 src/info_marker_publisher1.cpp)
 target_link_libraries(info_marker_publisher1 ${catkin_LIBRARIES})
 
+add_executable(info_marker_publisher2 src/info_marker_publisher2.cpp)
+target_link_libraries(info_marker_publisher2 ${catkin_LIBRARIES})
+
+add_executable(pseudo_force_torque_publisher src/pseudo_force_torque_publisher.cpp)
+target_link_libraries(pseudo_force_torque_publisher ${catkin_LIBRARIES})
+
+
+
 add_executable(dynpick_driver_node src/main_refa.cpp src/kbhit.c)
 add_dependencies(dynpick_driver_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(dynpick_driver_node ${catkin_LIBRARIES})
