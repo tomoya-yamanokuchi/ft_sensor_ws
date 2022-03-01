@@ -187,4 +187,5 @@ visualization_msgs::MarkerArray  MAF3MarkerArray::get_marker_array(double *weigh
 
 
     return marker_array;
+
 }
