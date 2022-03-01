@@ -11,8 +11,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "MAF3MarkerArray.hpp"
-
 #include <mutex>
 #include <condition_variable>
 
@@ -27,12 +25,6 @@
 
 #define RESOLUTION 1000.0
 #define FILTER 0.8
-
-#define data_at_free 8192.0
-#define main_axis_sensitivity_Fz 328.0
-#define main_axis_sensitivity_Mx 655.0
-#define main_axis_sensitivity_My 655.0
-
 
 std::mutex m_;
 std::condition_variable cv_;
@@ -155,6 +147,8 @@ int main(int argc, char **argv)
     int c;
     int			tick;
 
+    unsigned short data[6];
+
     fdc = -1;
 
     ros::init(argc, argv, "dynpick_driver");
@@ -171,8 +165,8 @@ int main(int argc, char **argv)
 
 
     // ros::Publisher pub        = n.advertise<MAF3_msgs::MAF3_Raw>("force", 100);
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 100);
-    // ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>("wrench_stamped", 100);
+    // ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 100);
+    ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>("wrench_stamped", 100);
 
     ros::AsyncSpinner spinner(2); // Use 2 threads
     spinner.start();
@@ -211,31 +205,8 @@ int main(int argc, char **argv)
     //     // clearSocket(fdc, trash);
     // }
 
-
-
     // Request for initial single data
     write(fdc, "R", 1);
-
-
-    // geometry_msgs::Point force_start;
-    // force_start.x = 0.0;
-    // force_start.y = 0.0;
-    // force_start.z = 0.0;
-
-
-    // double moment_arrow_offset = 0.3;
-    // geometry_msgs::Point moment_start;
-    // moment_start.x = moment_arrow_offset;
-    // moment_start.y = 0.0;
-    // moment_start.z = 0.0;
-
-
-    // geometry_msgs::Vector3 arrow;  // config arrow shape
-    // arrow.x = 0.02;
-    // arrow.y = 0.04;
-    // arrow.z = 0.1;
-
-    MAF3MarkerArray maf3MarkerArray;
 
     ros::Rate loop_rate(rate);
     while (ros::ok())
@@ -243,7 +214,6 @@ int main(int argc, char **argv)
         char str[256];
         int tick;
         unsigned short data[6];
-        double         weight[6] = {0.0};
 
         // geometry_msgs::WrenchStamped msg;
         // MAF3_msgs::MAF3_Raw msg;
@@ -262,40 +232,87 @@ int main(int argc, char **argv)
                 &tick, &data[0], &data[1], &data[2], &data[3], &data[4], &data[5]);
 
 
-            // ROS_INFO("%05d,%05d,%05d,%05d,%05d,%05d",
-            //     data[0], data[1], data[2], data[3], data[4], data[5]);
-
-
-            // 検出荷重[N]  = ( 検出値 [LSB] - 零点出力値 [LSB] ) ÷ 主軸感度 [LSB/N]
-            weight[2] = (data[2] - data_at_free) / main_axis_sensitivity_Fz;
-
-            // 検出荷重[Nm] = ( 検出値 [LSB] - 零点出力値 [LSB] ) ÷ 主軸感度 [LSB/Nm]
-            weight[3] = (data[3] - data_at_free) / main_axis_sensitivity_Mx;
-            weight[4] = (data[4] - data_at_free) / main_axis_sensitivity_My;
-
-
-            ROS_INFO("%8.3f, %8.3f, %8.3f, %8.3f, %8.3f, %8.3f",
-                weight[0], weight[1], weight[2], weight[3], weight[4], weight[5]);
+            ROS_INFO("%05d,%05d,%05d,%05d,%05d,%05d",
+                data[0], data[1], data[2], data[3], data[4], data[5]);
 
 
 
-            // geometry_msgs::Point force_end;
-            // force_end.x = 0.0;
-            // force_end.y = 0.0;
-            // force_end.z = weight[2] * 0.2;
 
-            // geometry_msgs::Point moment_end;
-            // moment_end.x = moment_arrow_offset;
-            // moment_end.y = 0.0;
-            // moment_end.z = weight[3] * 0.4;
+            // geometry_msgs::Point linear_start;
+            // linear_start.x = 0.0;
+            // linear_start.y = 0.0;
+            // linear_start.z = 0.1;
+
+            // geometry_msgs::Point linear_end;
+            // linear_end.x = 0.0;
+            // linear_end.y = 0.0;
+            // linear_end.z = data[2] * 0.0001 ;
+
+            // geometry_msgs::Vector3 arrow;  // config arrow shape
+            // arrow.x = 0.02;
+            // arrow.y = 0.04;
+            // arrow.z = 0.1;
+
+            geometry_msgs::WrenchStamped wrench_stamped;
+            // wrench_stamped.markers.resize(2);
+
+            // marker0
+            wrench_stamped.header.frame_id = "world";
+            wrench_stamped.header.stamp    = ros::Time::now();
+            // wrench_stamped.ns              = "cmd_vel_display";
+            // wrench_stamped.id              = 0;
+            // wrench_stamped.lifetime        = ros::Duration();
+
+            wrench_stamped.wrench.force.x  = 0.0;
+            wrench_stamped.wrench.force.y  = 0.0;
+            wrench_stamped.wrench.force.z  = data[2] * 0.0001;
+
+            wrench_stamped.wrench.torque.x = data[3] * 0.0001;
+            wrench_stamped.wrench.torque.y = data[4] * 0.0001;
+            wrench_stamped.wrench.torque.z = 0.0;
+
+            // marker_array.markers[0].points.resize(2);
+            // marker_array.markers[0].points[0] = linear_start;
+            // marker_array.markers[0].points[1] = linear_end;
+
+            // marker_array.markers[0].color.r = 0.0f;
+            // marker_array.markers[0].color.g = 1.0f;
+            // marker_array.markers[0].color.b = 0.0f;
+            // marker_array.markers[0].color.a = 1.0f;
+
+            // marker_array.markers[0].pose.orientation.x = 0.0;
+            // marker_array.markers[0].pose.orientation.y = 0.0;
+            // marker_array.markers[0].pose.orientation.z = 0.0;
+            // marker_array.markers[0].pose.orientation.w = 1.0;
 
 
-            visualization_msgs::MarkerArray marker_array;
-            // marker_array.markers.resize(2);
+            // // marker1
+            // marker_array.markers[1].header.frame_id = "world";
+            // marker_array.markers[1].header.stamp    = ros::Time::now();
+            // marker_array.markers[1].ns              = "cmd_vel_display";
+            // marker_array.markers[1].id              = 1;
+            // marker_array.markers[1].lifetime        = ros::Duration();
 
+            // marker_array.markers[1].type = visualization_msgs::Marker::ARROW;
+            // marker_array.markers[1].action = visualization_msgs::Marker::ADD;
+            // marker_array.markers[1].scale = arrow;
 
-            marker_array = maf3MarkerArray.get_marker_array(weight);
-            marker_pub.publish(marker_array);
+            // marker_array.markers[1].points.resize(2);
+            // marker_array.markers[1].points[0] = linear_start;
+            // marker_array.markers[1].points[1] = linear_end;
+
+            // marker_array.markers[1].color.r = 0.0f;
+            // marker_array.markers[1].color.g = 1.0f;
+            // marker_array.markers[1].color.b = 0.0f;
+            // marker_array.markers[1].color.a = 1.0f;
+
+            // marker_array.markers[1].pose.orientation.x = 0.0;
+            // marker_array.markers[1].pose.orientation.y = 0.0;
+            // marker_array.markers[1].pose.orientation.z = 0.0;
+            // marker_array.markers[1].pose.orientation.w = 1.0;
+
+            wrench_pub.publish(wrench_stamped);
+
 
             lock.unlock();
 

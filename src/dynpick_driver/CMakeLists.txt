@@ -51,7 +51,7 @@ target_link_libraries(info_marker_publisher2 ${catkin_LIBRARIES})
 # target_link_libraries(pseudo_force_torque_publisher ${catkin_LIBRARIES})
 
 
-add_executable(dynpick_driver_node src/main_arrow.cpp src/kbhit.c)
+add_executable(dynpick_driver_node src/main_arrow.cpp src/kbhit.c src/MAF3MarkerArray.cpp src/MAF3MarkerArray.hpp)
 add_dependencies(dynpick_driver_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(dynpick_driver_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(dynpick_driver_node ${catkin_LIBRARIES})

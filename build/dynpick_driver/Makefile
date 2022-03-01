@@ -602,6 +602,33 @@ std_srvs_generate_messages_lisp/fast:
 	cd /home/tomoya-y/ft_sensor_ws/build && $(MAKE) -f dynpick_driver/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make dynpick_driver/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
 .PHONY : std_srvs_generate_messages_lisp/fast
 
+src/MAF3MarkerArray.o: src/MAF3MarkerArray.cpp.o
+
+.PHONY : src/MAF3MarkerArray.o
+
+# target to build an object file
+src/MAF3MarkerArray.cpp.o:
+	cd /home/tomoya-y/ft_sensor_ws/build && $(MAKE) -f dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/MAF3MarkerArray.cpp.o
+.PHONY : src/MAF3MarkerArray.cpp.o
+
+src/MAF3MarkerArray.i: src/MAF3MarkerArray.cpp.i
+
+.PHONY : src/MAF3MarkerArray.i
+
+# target to preprocess a source file
+src/MAF3MarkerArray.cpp.i:
+	cd /home/tomoya-y/ft_sensor_ws/build && $(MAKE) -f dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/MAF3MarkerArray.cpp.i
+.PHONY : src/MAF3MarkerArray.cpp.i
+
+src/MAF3MarkerArray.s: src/MAF3MarkerArray.cpp.s
+
+.PHONY : src/MAF3MarkerArray.s
+
+# target to generate assembly for a file
+src/MAF3MarkerArray.cpp.s:
+	cd /home/tomoya-y/ft_sensor_ws/build && $(MAKE) -f dynpick_driver/CMakeFiles/dynpick_driver_node.dir/build.make dynpick_driver/CMakeFiles/dynpick_driver_node.dir/src/MAF3MarkerArray.cpp.s
+.PHONY : src/MAF3MarkerArray.cpp.s
+
 src/info_marker_publisher1.o: src/info_marker_publisher1.cpp.o
 
 .PHONY : src/info_marker_publisher1.o
@@ -779,6 +806,9 @@ help:
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... std_srvs_generate_messages_lisp"
+	@echo "... src/MAF3MarkerArray.o"
+	@echo "... src/MAF3MarkerArray.i"
+	@echo "... src/MAF3MarkerArray.s"
 	@echo "... src/info_marker_publisher1.o"
 	@echo "... src/info_marker_publisher1.i"
 	@echo "... src/info_marker_publisher1.s"
