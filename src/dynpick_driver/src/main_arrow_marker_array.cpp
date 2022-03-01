@@ -165,8 +165,8 @@ int main(int argc, char **argv)
 
 
     // ros::Publisher pub        = n.advertise<MAF3_msgs::MAF3_Raw>("force", 100);
-    // ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 100);
-    ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>("wrench_stamped", 100);
+    ros::Publisher marker_pub = n.advertise<visualization_msgs::MarkerArray>("marker_array", 100);
+    // ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>("wrench_stamped", 100);
 
     ros::AsyncSpinner spinner(2); // Use 2 threads
     spinner.start();
@@ -235,83 +235,102 @@ int main(int argc, char **argv)
             ROS_INFO("%05d,%05d,%05d,%05d,%05d,%05d",
                 data[0], data[1], data[2], data[3], data[4], data[5]);
 
+            // ROS_INFO("+++++");
+            // msg.header.frame_id = "world";
 
+            // msg.Fz = data[2];
+            // msg.Mx = data[3];
+            // msg.My = data[4];
 
+            // pub.publish(msg);
 
-            // geometry_msgs::Point linear_start;
-            // linear_start.x = 0.0;
-            // linear_start.y = 0.0;
-            // linear_start.z = 0.1;
-
-            // geometry_msgs::Point linear_end;
-            // linear_end.x = 0.0;
-            // linear_end.y = 0.0;
-            // linear_end.z = data[2] * 0.0001 ;
-
-            // geometry_msgs::Vector3 arrow;  // config arrow shape
+            // geometry_msgs::Vector3 arrow;
             // arrow.x = 0.02;
             // arrow.y = 0.04;
             // arrow.z = 0.1;
 
-            geometry_msgs::WrenchStamped wrench_stamped;
-            // wrench_stamped.markers.resize(2);
+
+            // geometry_msgs::Point linear_start;
+            // linear_start.x = 0;
+            // linear_start.y = 0;
+            // linear_start.z = 8000;
+            // geometry_msgs::Point linear_end;
+            // linear_end.x = 0;
+            // linear_end.y = 0;
+            // linear_end.z = data[2];
+
+            // length = 0.5
+
+            geometry_msgs::Point linear_start;
+            linear_start.x = 0.0;
+            linear_start.y = 0.0;
+            linear_start.z = 0.1;
+
+            geometry_msgs::Point linear_end;
+            linear_end.x = 0.0;
+            linear_end.y = 0.0;
+            linear_end.z = data[2] * 0.0001 ;
+
+            geometry_msgs::Vector3 arrow;  // config arrow shape
+            arrow.x = 0.02;
+            arrow.y = 0.04;
+            arrow.z = 0.1;
+
+            visualization_msgs::MarkerArray marker_array;
+            marker_array.markers.resize(2);
 
             // marker0
-            wrench_stamped.header.frame_id = "world";
-            wrench_stamped.header.stamp    = ros::Time::now();
-            // wrench_stamped.ns              = "cmd_vel_display";
-            // wrench_stamped.id              = 0;
-            // wrench_stamped.lifetime        = ros::Duration();
+            marker_array.markers[0].header.frame_id = "world";
+            marker_array.markers[0].header.stamp    = ros::Time::now();
+            marker_array.markers[0].ns              = "cmd_vel_display";
+            marker_array.markers[0].id              = 0;
+            marker_array.markers[0].lifetime        = ros::Duration();
 
-            wrench_stamped.wrench.force.x  = 0.0;
-            wrench_stamped.wrench.force.y  = 0.0;
-            wrench_stamped.wrench.force.z  = data[2] * 0.0001;
+            marker_array.markers[0].type = visualization_msgs::Marker::ARROW;
+            marker_array.markers[0].action = visualization_msgs::Marker::ADD;
+            marker_array.markers[0].scale = arrow;
 
-            wrench_stamped.wrench.torque.x = data[3] * 0.0001;
-            wrench_stamped.wrench.torque.y = data[4] * 0.0001;
-            wrench_stamped.wrench.torque.z = 0.0;
+            marker_array.markers[0].points.resize(2);
+            marker_array.markers[0].points[0] = linear_start;
+            marker_array.markers[0].points[1] = linear_end;
 
-            // marker_array.markers[0].points.resize(2);
-            // marker_array.markers[0].points[0] = linear_start;
-            // marker_array.markers[0].points[1] = linear_end;
+            marker_array.markers[0].color.r = 0.0f;
+            marker_array.markers[0].color.g = 1.0f;
+            marker_array.markers[0].color.b = 0.0f;
+            marker_array.markers[0].color.a = 1.0f;
 
-            // marker_array.markers[0].color.r = 0.0f;
-            // marker_array.markers[0].color.g = 1.0f;
-            // marker_array.markers[0].color.b = 0.0f;
-            // marker_array.markers[0].color.a = 1.0f;
-
-            // marker_array.markers[0].pose.orientation.x = 0.0;
-            // marker_array.markers[0].pose.orientation.y = 0.0;
-            // marker_array.markers[0].pose.orientation.z = 0.0;
-            // marker_array.markers[0].pose.orientation.w = 1.0;
+            marker_array.markers[0].pose.orientation.x = 0.0;
+            marker_array.markers[0].pose.orientation.y = 0.0;
+            marker_array.markers[0].pose.orientation.z = 0.0;
+            marker_array.markers[0].pose.orientation.w = 1.0;
 
 
-            // // marker1
-            // marker_array.markers[1].header.frame_id = "world";
-            // marker_array.markers[1].header.stamp    = ros::Time::now();
-            // marker_array.markers[1].ns              = "cmd_vel_display";
-            // marker_array.markers[1].id              = 1;
-            // marker_array.markers[1].lifetime        = ros::Duration();
+            // marker1
+            marker_array.markers[1].header.frame_id = "world";
+            marker_array.markers[1].header.stamp    = ros::Time::now();
+            marker_array.markers[1].ns              = "cmd_vel_display";
+            marker_array.markers[1].id              = 1;
+            marker_array.markers[1].lifetime        = ros::Duration();
 
-            // marker_array.markers[1].type = visualization_msgs::Marker::ARROW;
-            // marker_array.markers[1].action = visualization_msgs::Marker::ADD;
-            // marker_array.markers[1].scale = arrow;
+            marker_array.markers[1].type = visualization_msgs::Marker::ARROW;
+            marker_array.markers[1].action = visualization_msgs::Marker::ADD;
+            marker_array.markers[1].scale = arrow;
 
-            // marker_array.markers[1].points.resize(2);
-            // marker_array.markers[1].points[0] = linear_start;
-            // marker_array.markers[1].points[1] = linear_end;
+            marker_array.markers[1].points.resize(2);
+            marker_array.markers[1].points[0] = linear_start;
+            marker_array.markers[1].points[1] = linear_end;
 
-            // marker_array.markers[1].color.r = 0.0f;
-            // marker_array.markers[1].color.g = 1.0f;
-            // marker_array.markers[1].color.b = 0.0f;
-            // marker_array.markers[1].color.a = 1.0f;
+            marker_array.markers[1].color.r = 0.0f;
+            marker_array.markers[1].color.g = 1.0f;
+            marker_array.markers[1].color.b = 0.0f;
+            marker_array.markers[1].color.a = 1.0f;
 
-            // marker_array.markers[1].pose.orientation.x = 0.0;
-            // marker_array.markers[1].pose.orientation.y = 0.0;
-            // marker_array.markers[1].pose.orientation.z = 0.0;
-            // marker_array.markers[1].pose.orientation.w = 1.0;
+            marker_array.markers[1].pose.orientation.x = 0.0;
+            marker_array.markers[1].pose.orientation.y = 0.0;
+            marker_array.markers[1].pose.orientation.z = 0.0;
+            marker_array.markers[1].pose.orientation.w = 1.0;
 
-            wrench_pub.publish(wrench_stamped);
+            marker_pub.publish(marker_array);
 
 
             lock.unlock();
