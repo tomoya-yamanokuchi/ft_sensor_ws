@@ -66,7 +66,45 @@ start :
 	num = 0;
 
 	// 感度係数(主軸感度)を返す（初回分）
-	write(fdc, "P", 1);
+	write(fdc, "p", 1);
+
+
+	// 感度係数(主軸感度)を得る
+	int i;
+	unsigned long dataL[6];
+	unsigned short cs;
+	for (i = 0; i < 6; i++){
+		read(fdc, &dataL[i], 4);
+	}
+
+	// チェックサムを得る
+	read(fdc, &cs, 2);
+	printf("-------------\n");
+	printf("%d\n", cs);
+	printf("-------------\n");
+
+
+	// int binary;
+	// int decimal = 0;
+	// int base = 1;
+
+	// while(dataL[2]>0){
+	// 	decimal = decimal + ( dataL[2] % 10 ) * base;
+	// 	dataL[2] = dataL[2] / 10;
+	// 	base = base * 2;
+	// }
+
+
+	// 感度係数を表示
+	printf("%ld, %ld, %ld, %ld, %ld, %ld\n",
+			dataL[0], dataL[1], dataL[2], dataL[3], dataL[4], dataL[5]);
+
+	// printf("%f, %f, %f, %f, %f, %f\n",
+	// 		dataL[0], dataL[1], dataL[2], dataL[3], dataL[4], dataL[5]);
+
+	return 0;
+	// ---------------------------------------------
+
 
 	init_keyboard();
 
@@ -88,12 +126,16 @@ start :
 		write(fdc, "P", 1);
 
 		// 単データを得る
-		n = read(fdc, str, 26);	
-		if (n < 26)
-			{
-//			printf ("=== error ! n = %d ===\n", n);
-			goto skip;
-			}
+// 		n = read(fdc, str, 26);
+// 		if (n < 26)
+// 			{
+// //			printf ("=== error ! n = %d ===\n", n);
+// 			goto skip;
+// 			}
+
+		for (i = 0; i < 6; i++){
+			read(fdc, &dataL[i], 4);
+		}
 
 		sscanf(str, "%4hx%4hx%4hx%4hx%4hx%4hx",
 			 &data[0], &data[1], &data[2], &data[3], &data[4], &data[5]);
@@ -168,8 +210,8 @@ int SetComAttr(int fdc)
 	term.c_iflag = IGNPAR;
 	term.c_oflag = 0;
 	term.c_lflag = 0;/*ICANON;*/
- 
-	term.c_cc[VINTR]    = 0;     /* Ctrl-c */ 
+
+	term.c_cc[VINTR]    = 0;     /* Ctrl-c */
 	term.c_cc[VQUIT]    = 0;     /* Ctrl-? */
 	term.c_cc[VERASE]   = 0;     /* del */
 	term.c_cc[VKILL]    = 0;     /* @ */
@@ -177,7 +219,7 @@ int SetComAttr(int fdc)
 	term.c_cc[VTIME]    = 0;
 	term.c_cc[VMIN]     = 0;
 	term.c_cc[VSWTC]    = 0;     /* '?0' */
-	term.c_cc[VSTART]   = 0;     /* Ctrl-q */ 
+	term.c_cc[VSTART]   = 0;     /* Ctrl-q */
 	term.c_cc[VSTOP]    = 0;     /* Ctrl-s */
 	term.c_cc[VSUSP]    = 0;     /* Ctrl-z */
 	term.c_cc[VEOL]     = 0;     /* '?0' */
@@ -190,6 +232,6 @@ int SetComAttr(int fdc)
 //	tcflush(fdc, TCIFLUSH);
 	n = tcsetattr(fdc, TCSANOW, &term);
 over :
-	
+
 	return (n);
 	}
