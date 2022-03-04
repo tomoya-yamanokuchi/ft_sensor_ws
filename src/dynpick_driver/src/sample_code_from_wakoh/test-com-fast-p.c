@@ -9,8 +9,17 @@
 
 #define true		1
 #define false		0
+#define CHAR_BIT 8
 
 int SetComAttr(int fdc);
+
+
+void encode(int c) {
+    for (int i = 0; i < CHAR_BIT; i++) {
+        printf("%d", !!((c << i) & 0x80));
+    }
+}
+
 
 int main()
 	{
@@ -66,7 +75,7 @@ start :
 	num = 0;
 
 	// 感度係数(主軸感度)を返す（初回分）
-	write(fdc, "p", 1);
+	write(fdc, "P", 1);
 
 
 	// 感度係数(主軸感度)を得る
@@ -79,24 +88,21 @@ start :
 
 	// チェックサムを得る
 	read(fdc, &cs, 2);
-	printf("-------------\n");
-	printf("%d\n", cs);
-	printf("-------------\n");
+	// printf("-------------\n");
+	// printf("%d\n", cs);
+	// printf("-------------\n");
 
-
-	// int binary;
-	// int decimal = 0;
-	// int base = 1;
-
-	// while(dataL[2]>0){
-	// 	decimal = decimal + ( dataL[2] % 10 ) * base;
-	// 	dataL[2] = dataL[2] / 10;
-	// 	base = base * 2;
-	// }
+    // std::string a;
+    // while ((c = getchar()) != EOF) {
+    //     encode(c);
+    // }
 
 
 	// 感度係数を表示
 	printf("%ld, %ld, %ld, %ld, %ld, %ld\n",
+			dataL[0], dataL[1], dataL[2], dataL[3], dataL[4], dataL[5]);
+
+	printf("%lu, %lu, %lu, %lu, %lu, %lu\n",
 			dataL[0], dataL[1], dataL[2], dataL[3], dataL[4], dataL[5]);
 
 	// printf("%f, %f, %f, %f, %f, %f\n",
