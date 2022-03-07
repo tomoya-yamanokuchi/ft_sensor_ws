@@ -77,7 +77,7 @@ class MAF3_SerialCommunication:
         return [(raw_data[i] - self.raw_data_at_free) / self.sensitivities[i] for i in range(self.n_axis)]
 
 
-    def read_data(self):
+    def read_weight(self):
         return self.convert_raw_data_to_weight(self._read_raw_data())
 
 
@@ -106,6 +106,6 @@ if __name__ == "__main__":
 
     ft_ser.open()
     for i in range(1000):
-        data = ft_ser.read_data()
+        data = ft_ser.read_weight()
         ft_ser.print_weight(data)
     ft_ser.close()
