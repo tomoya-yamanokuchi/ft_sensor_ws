@@ -2,6 +2,7 @@ from email import header
 from mimetypes import init
 from black import main
 from matplotlib.pyplot import pink
+from numpy import piecewise
 import rospy
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point, Quaternion, Vector3
@@ -13,7 +14,7 @@ from MAF3_MarkerArray import MAF3_MarkerArray
 
 class MAF3_RVIZ:
     def __init__(self):
-        self.ft_ser          = MAF3_SerialCommunication()
+        self.ft_ser          = MAF3_SerialCommunication(port_name="/dev/ttyUSB0")
         self.ft_marker_array = MAF3_MarkerArray()
 
 
@@ -23,7 +24,7 @@ class MAF3_RVIZ:
         rospy.init_node("marker_array_node")
 
         marker_array_pub = rospy.Publisher("marker_array", MarkerArray, queue_size = 100)
-        rate = rospy.Rate(30)
+        rate = rospy.Rate(60)
 
 
         self.ft_ser.open()
@@ -34,6 +35,7 @@ class MAF3_RVIZ:
             marker_array_pub.publish(marker_array_msg)
 
             self.ft_ser.print_weight(weight)
+            # print(self.ft_marker_array.position.y)
             rate.sleep()
 
 

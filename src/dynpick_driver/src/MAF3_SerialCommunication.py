@@ -6,7 +6,8 @@ import rospy
 
 
 class MAF3_SerialCommunication:
-    def __init__(self):
+    def __init__(self, port_name):
+        self.port_name           = port_name
         self.R                   = "R"      # 単データリクエストコマンド
         self.P                   = "P"      # 主軸感度リクエストコマンド
         self.n_data_R            = 27       # 単データリクエストの際に返ってくるデータのバイト数
@@ -19,12 +20,12 @@ class MAF3_SerialCommunication:
 
     def open(self):
         self.ser = serial.Serial(
-            port     = '/dev/ttyUSB0',
-            baudrate = 921600,
+            port     = self.port_name,
             timeout  = None,
-            bytesize = serial.EIGHTBITS,
-            parity   = serial.PARITY_NONE,
-            stopbits = serial.STOPBITS_ONE
+            baudrate = 921600,              # 仕様
+            bytesize = serial.EIGHTBITS,    # 仕様
+            parity   = serial.PARITY_NONE,  # 仕様
+            stopbits = serial.STOPBITS_ONE  # 仕様
         )
         self.sensitivities = self.read_sensitivity()
         self.print_sensitivities(self.sensitivities)
@@ -37,7 +38,7 @@ class MAF3_SerialCommunication:
     def _read_sensitivity(self):
         self.ser.write(self.P.encode())
         sensitivities = [0.0]*self.n_axis
-        for i in range(6):
+        for i in range(self.n_axis):
             sensitivities[i] = int.from_bytes(self.ser.read(4), byteorder='little') * self.unit_P_response
         self.ser.read(2) # 行末に2バイトのチェックサムがあるので最後まで読み込む
         return sensitivities
@@ -102,7 +103,7 @@ class MAF3_SerialCommunication:
 
 
 if __name__ == "__main__":
-    ft_ser = MAF3_SerialCommunication()
+    ft_ser = MAF3_SerialCommunication("/dev/ttyUSB0")
 
     ft_ser.open()
     for i in range(1000):
