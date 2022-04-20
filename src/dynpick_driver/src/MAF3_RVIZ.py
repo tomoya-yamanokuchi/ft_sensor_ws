@@ -14,7 +14,7 @@ from MAF3_MarkerArray import MAF3_MarkerArray
 
 class MAF3_RVIZ:
     def __init__(self):
-        self.ft_ser          = MAF3_SerialCommunication(port_name="/dev/ttyUSB2")
+        self.ft_ser          = MAF3_SerialCommunication(port_name="/dev/ttyUSB0")
         self.ft_marker_array = MAF3_MarkerArray()
 
 
