@@ -29,7 +29,7 @@ class MAF3_RVIZ_List:
         )
         self.ft_marker_array_list = MAF3_MarkerArrayList(
             namespace_list             = ["ft{}".format(n) for n in range(self.n_sensor)],
-            arrow_position_offset_list = [[0.0, -1.0, 0.0], [0.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
+            arrow_position_offset_list = [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
         )
 
 
