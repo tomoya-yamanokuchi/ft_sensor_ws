@@ -47,8 +47,8 @@ class MAF3_MarkerArray:
         assert len(weight) == self.n_axis
         if marker_array is None:
             marker_array = MarkerArray()
-        marker_array.markers.append(self.create_marker(id=0, xyz=[ 0.0, 0.0, weight[2]], rgba=RGBA([255,  64, 129, 1.0]).rgba_max1())) # Fz
+        marker_array.markers.append(self.create_marker(id=0, xyz=[ 0.0, 0.0, -weight[2]], rgba=RGBA([255,  64, 129, 1.0]).rgba_max1())) # Fz
         marker_array.markers.append(self.create_marker(id=1, xyz=[ 0.0, weight[3], 0.0], rgba=RGBA([118, 255,   3, 1.0]).rgba_max1())) # Mx
-        marker_array.markers.append(self.create_marker(id=2, xyz=[-weight[4], 0.0, 0.0], rgba=RGBA([  0, 176, 255, 1.0]).rgba_max1())) # My
+        marker_array.markers.append(self.create_marker(id=2, xyz=[weight[4], 0.0, 0.0], rgba=RGBA([  0, 176, 255, 1.0]).rgba_max1())) # My
         return marker_array
 

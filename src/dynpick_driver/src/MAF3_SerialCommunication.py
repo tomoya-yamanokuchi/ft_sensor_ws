@@ -78,8 +78,14 @@ class MAF3_SerialCommunication:
         return [(raw_data[i] - self.raw_data_at_free) / self.sensitivities[i] for i in range(self.n_axis)]
 
 
-    def read_weight(self):
+    def _read_all_weight(self):
         return self.convert_raw_data_to_weight(self._read_raw_data())
+
+
+    def read_weight(self):
+        weight_all    = self._read_all_weight()
+        weight_active = np.take(weight_all, [2, 3, 4])
+        return weight_active
 
 
     def print_sensitivities(self, sensitivities):
