@@ -21,6 +21,8 @@ class MAF3_SerialCommunicationList:
     def read_weight(self):
         return [self.ser[i].read_weight() for i in range(self.n_port)]
 
+    def _read_all_weight(self):
+        return [self.ser[i]._read_all_weight() for i in range(self.n_port)]
 
     def print_sensitivities(self, sensitivities_list):
         [self.ser[0].print_sensitivities(sensitivities) for sensitivities in sensitivities_list]
