@@ -19,7 +19,7 @@ class MAF3_SerialCommunicationList:
 
 
     def read_weight(self):
-        return [self.ser[i].read_weight() for i in range(self.n_port)]
+        return np.hstack([self.ser[i].read_weight() for i in range(self.n_port)])
 
     def _read_all_weight(self):
         return [self.ser[i]._read_all_weight() for i in range(self.n_port)]

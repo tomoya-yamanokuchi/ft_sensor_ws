@@ -16,9 +16,10 @@ import pathlib
 
 class MAF3_RVIZ_List:
     def __init__(self):
-        p                       = pathlib.Path(__file__)
+        p                               = pathlib.Path(__file__)
         self.serial_number_config       = OmegaConf.load(str(p.parent) + "/MAF3_serial_number.yaml")
-        serial_number_in_order          = [self.serial_number_config[key] for key in list(np.sort(list(self.serial_number_config.keys())))]
+        # serial_number_in_order          = [self.serial_number_config[key] for key in list(np.sort(list(self.serial_number_config.keys())))]
+        serial_number_in_order          = [self.serial_number_config[key] for key in list(self.serial_number_config.keys())]
         ports                           = list(serial.tools.list_ports.comports())
         usb_port_and_serial_number_dict = {}
         for p in ports:
@@ -54,7 +55,6 @@ class MAF3_RVIZ_List:
             ft_msg.data = self.ft_ser_list.read_weight()
             ft_pub.publish(ft_msg)
 
-            # self.ft_ser_list.print_weight(ft_msg.data)
             rate.sleep()
 
 

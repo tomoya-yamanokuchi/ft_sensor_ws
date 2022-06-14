@@ -31,9 +31,12 @@ class MAF3_Subscriber:
         self.connection_flag["ft_value"] = True
 
 
-
 if __name__ == '__main__':
 
-    rospy.init_node("marker_sdcsdcds")
+    rospy.init_node("marker_node")
     sub = MAF3_Subscriber()
 
+
+    for i in range(100):
+        print("[{: .2f}, {: .2f}, {: .2f}] [{: .2f}, {: .2f}, {: .2f}] [{: .2f}, {: .2f}, {: .2f}]".format(*sub.ft_value))
+        time.sleep(0.1)
