@@ -9,7 +9,7 @@ class MAF3_MarkerArray:
     def __init__(self, namespace="ft1", arrow_position_offset=[0.0, 0.5, 0.0]):
         self.frame_id              = "world"
         self.namespace             = namespace
-        self.n_axis                = 6 # MAF-3の軸数（Fz, Mx, My）
+        self.n_axis                = 3 # MAF-3の軸数（Fz, Mx, My）
         self.arrow_scale           = Vector3(x=0.1, y=0.3, z=0.5) # (arrow_length, arrow_width, arrow_height)
         self.orientation           = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
 
@@ -47,8 +47,8 @@ class MAF3_MarkerArray:
         assert len(weight) == self.n_axis
         if marker_array is None:
             marker_array = MarkerArray()
-        marker_array.markers.append(self.create_marker(id=0, xyz=[ 0.0, 0.0, -weight[2]], rgba=RGBA([255,  64, 129, 1.0]).rgba_max1())) # Fz
-        marker_array.markers.append(self.create_marker(id=1, xyz=[ 0.0, weight[3], 0.0], rgba=RGBA([118, 255,   3, 1.0]).rgba_max1())) # Mx
-        marker_array.markers.append(self.create_marker(id=2, xyz=[weight[4], 0.0, 0.0], rgba=RGBA([  0, 176, 255, 1.0]).rgba_max1())) # My
+        marker_array.markers.append(self.create_marker(id=0, xyz=[ 0.0, 0.0, -weight[0]], rgba=RGBA([255,  64, 129, 1.0]).rgba_max1())) # Fz
+        marker_array.markers.append(self.create_marker(id=1, xyz=[ 0.0,  weight[1], 0.0], rgba=RGBA([118, 255,   3, 1.0]).rgba_max1())) # Mx
+        marker_array.markers.append(self.create_marker(id=2, xyz=[  weight[2], 0.0, 0.0], rgba=RGBA([  0, 176, 255, 1.0]).rgba_max1())) # My
         return marker_array
 

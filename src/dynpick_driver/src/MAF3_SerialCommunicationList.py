@@ -18,8 +18,10 @@ class MAF3_SerialCommunicationList:
         [self.ser[i].close() for i in range(self.n_port)]
 
 
-    def read_weight(self):
-        return np.hstack([self.ser[i].read_weight() for i in range(self.n_port)])
+    def read_weight(self, is_hstack=False):
+        if is_hstack: return np.hstack([self.ser[i].read_weight() for i in range(self.n_port)])
+        else        : return           [self.ser[i].read_weight() for i in range(self.n_port)]
+
 
     def _read_all_weight(self):
         return [self.ser[i]._read_all_weight() for i in range(self.n_port)]
@@ -29,6 +31,6 @@ class MAF3_SerialCommunicationList:
 
 
     def print_weight(self, weight_list: list):
-        weight_string_list = ["{: .2f}[N], {: .2f}[N/cm], {: .2f}[N/cm]".format(weight_list[i][2], weight_list[i][3], weight_list[i][4]) for i in range(self.n_port)]
+        weight_string_list = ["{: .2f}[N], {: .2f}[N/cm], {: .2f}[N/cm]".format(weight_list[i][0], weight_list[i][1], weight_list[i][2]) for i in range(self.n_port)]
         print(" | ".join(weight_string_list))
 

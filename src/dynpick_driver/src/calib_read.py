@@ -4,7 +4,7 @@ import sys; import pathlib
 p         = pathlib.Path(__file__)
 save_path = "/".join(str(p.parent).split("/")[:-1]) + "/calibration_data"
 
-idx = 2
+idx = 0
 bias_mean = np.load(save_path + "/bias_mean_idx{}.npy".format(idx))
 bias_std  = np.load(save_path +  "/bias_std_idx{}.npy".format(idx))
 
