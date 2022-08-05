@@ -6,4 +6,5 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("MAF3_msgs")
+subdirs("optoforce-ros-publisher")
 subdirs("dynpick_driver")

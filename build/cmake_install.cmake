@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/tomoya-y/ft_sensor_ws/build/gtest/cmake_install.cmake")
   include("/home/tomoya-y/ft_sensor_ws/build/MAF3_msgs/cmake_install.cmake")
+  include("/home/tomoya-y/ft_sensor_ws/build/optoforce-ros-publisher/cmake_install.cmake")
   include("/home/tomoya-y/ft_sensor_ws/build/dynpick_driver/cmake_install.cmake")
 
 endif()

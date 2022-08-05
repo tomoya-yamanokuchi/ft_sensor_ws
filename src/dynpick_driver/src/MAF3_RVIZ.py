@@ -31,7 +31,7 @@ class MAF3_RVIZ:
         self.ft_ser.open()
         while not rospy.is_shutdown():
 
-            weight = self.ft_ser._read_all_weight()
+            weight = self.ft_ser.read_weight()
             marker_array_msg = self.ft_marker_array.create(weight)
             marker_array_pub.publish(marker_array_msg)
 
@@ -39,9 +39,9 @@ class MAF3_RVIZ:
             ft_msg.data = self.ft_ser.read_weight()
             ft_pub.publish(ft_msg)
 
-            self.ft_ser.print_weight(weight)
-
-            # print(self.ft_marker_array.position.y)
+            # self.ft_ser.print_weight(weight)
+            print(weight)
+            # print(self.ft_marker_array.position)
             rate.sleep()
 
 

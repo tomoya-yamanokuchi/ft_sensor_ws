@@ -636,6 +636,19 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named optoforce_sensor_node
+
+# Build rule for target.
+optoforce_sensor_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 optoforce_sensor_node
+.PHONY : optoforce_sensor_node
+
+# fast build rule for target.
+optoforce_sensor_node/fast:
+	$(MAKE) -f optoforce-ros-publisher/CMakeFiles/optoforce_sensor_node.dir/build.make optoforce-ros-publisher/CMakeFiles/optoforce_sensor_node.dir/build
+.PHONY : optoforce_sensor_node/fast
+
+#=============================================================================
 # Target rules for targets named _run_tests_dynpick_driver_roslaunch-check_launch_driver.launch
 
 # Build rule for target.
@@ -1061,6 +1074,7 @@ help:
 	@echo "... MAF3_msgs_geneus"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... optoforce_sensor_node"
 	@echo "... _run_tests_dynpick_driver_roslaunch-check_launch_driver.launch"
 	@echo "... clean_test_results_dynpick_driver"
 	@echo "... _run_tests_dynpick_driver_roslaunch-check_launch_sample.launch"

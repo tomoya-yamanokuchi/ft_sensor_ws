@@ -72,18 +72,18 @@ class MAF3_RVIZ_List:
         marker_array_pub = rospy.Publisher("/ft_sensor/marker_array",   MarkerArray,        queue_size = 100)
         ft_raw_pub       = rospy.Publisher("/ft_sensor/ft_raw_value",   Float64MultiArray,  queue_size = 100)
         ftg_status_pub   = rospy.Publisher("/ft_sensor/ft_status",      Int16MultiArray,    queue_size = 100)
-        rate             = rospy.Rate(60)
+        rate             = rospy.Rate(240)
 
         self.ft_ser_list.open()
         while not rospy.is_shutdown():
             weight_list = self.ft_ser_list.read_weight(is_hstack=False)
 
-            '''
-                marker
-            '''
-            marker_array_msg = self.ft_marker_array_list.create(weight_list)
-            marker_array_pub.publish(marker_array_msg)
-            self.ft_ser_list.print_weight(weight_list)
+            # '''
+            #     marker
+            # '''
+            # marker_array_msg = self.ft_marker_array_list.create(weight_list)
+            # marker_array_pub.publish(marker_array_msg)
+            # self.ft_ser_list.print_weight(weight_list)
 
             '''
                 ft_raw_value
@@ -92,12 +92,12 @@ class MAF3_RVIZ_List:
             ft_msg.data = np.hstack(weight_list) # self.ft_ser_list.read_weight()
             ft_raw_pub.publish(ft_msg)
 
-            '''
-                force_status
-            '''
-            ft_status_msg      = Int16MultiArray()
-            ft_status_msg.data = np.hstack(self.get_force_status_collection(weight_list))
-            ftg_status_pub.publish(ft_status_msg)
+            # '''
+            #     force_status
+            # '''
+            # ft_status_msg      = Int16MultiArray()
+            # ft_status_msg.data = np.hstack(self.get_force_status_collection(weight_list))
+            # ftg_status_pub.publish(ft_status_msg)
 
             rate.sleep()
             # time.sleep()
